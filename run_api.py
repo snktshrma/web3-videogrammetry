@@ -1,5 +1,5 @@
 import requests, json
-import webbrowser, time, os
+import webbrowser, time, os, os.path
 
 headers = {
     'accept': 'text/plain',
@@ -59,6 +59,16 @@ webbrowser.open(main["glbUrl"])
 
 link = main["glbUrl"]
 newLink = link.split("/")[-1]
+
 cmd = f"node ./web3_storage/web3-client.js --token={api} ~/Downloads/{newLink}"
 
+print("Waiting for download..")
+while not os.path.exists(f"~/Downloads/{newLink}"):
+	time.sleep(5)
+	continue
+
 os.system(cmd)
+
+
+
+
